@@ -4,14 +4,17 @@ import axios from 'axios'
 export default createStore({
   state: {
     products: [],
-    productsInBag: []
+    productsInBag: [],
   },
   mutations: {
     loadProducts (state, products) {
       state.products = products;
+      
       products.forEach(product => {
         product.inShoppingCart = 0;
-        product.tokens_required = (Number(product.tokens_required) / 100).toFixed(2);
+        product.price = (Number(product.tokens_required) / 100).toFixed(2);
+        product.price_short = (Number(product.tokens_required) / 100);
+        product.title_short = (limitCharacters(product.title, 45));
       });
 
     },
@@ -62,3 +65,16 @@ export default createStore({
   modules: {
   }
 })
+
+// Create a function to limit characters
+function limitCharacters(str, max){
+
+  if (str.length <= max) return str;
+  
+  const lastIndex = str.lastIndexOf(' ', max);
+
+  if (lastIndex === -1) return str.substring(0, max) + '...';
+
+    return str.substring(0, lastIndex) + '...';
+  }
+

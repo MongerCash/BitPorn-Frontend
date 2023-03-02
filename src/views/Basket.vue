@@ -1,32 +1,94 @@
 <template>
-  <div class="basket">
-    <div class="items">
+
+  <!--evaluate if cart should be shown-->
+  <template v-if="productsInBag.length">
+
+    <!--shopping cart title-->
+    <h5 class="mb-5">Your Shopping Cart</h5>
       
-      <template v-if="productsInBag.length">
+    <div class='row'>
 
-        <div v-for="(product, index) in productsInBag" :key="parseInt(index)" class="item">
-          <div class="remove" @click="this.$store.dispatch('removeFromBag', product.video_id); product.inShoppingCart = 0;">Remove item</div>
-          <div class="photo">
-            <img  :src="`https://bitporn.com/contents/videos_screenshots/0/${product.video_id}/320x180/1.jpg`">
-          </div>
-          <div class="description">
-              {{product.title}}
-          </div>
-          <div class="price">
-            <span class="amount">US$ {{product.tokens_required}}</span>
-          </div>
-        </div>
-        <div class="grand-total"> Grand Total: US$ {{orderTotal()}}</div>
-        <div class="checkout-button-div"><button class="checkout-button">Checkout</button></div>
+      <!--iterate over products in shopping cart-->    
+      <div
+        v-for="(product, index) in productsInBag" 
+        :key="parseInt(index)"
+        class="col-sm-12 mb-3 mb-sm-0">
+    
 
-      </template>
+        <!--card for each product begins here-->
+        <div class="
+          card 
+          mt-4">
 
-      <template v-else>
-        <h4>No Items In Cart</h4>
-      </template>
+          <!--make the card light gray with white text-->
+          <div class="card-body text-light bg-secondary">
 
-    </div>
-  </div>
+            <!--remove product from cart-->
+            <div class="text-end"
+              @click="this.$store.dispatch('removeFromBag', product.video_id); 
+              product.inShoppingCart = 0;">
+
+              <!--red garbage can icon-->
+              <i class="
+                fa-regular 
+                fa-trash-can 
+                text-danger 
+                fa-2x
+                ">
+              </i>
+            </div>
+
+            <!--product image-->
+            <div class="text-start">
+              <img class="rounded" 
+              :src="`https://bitporn.com/contents/videos_screenshots/0/${product.video_id}/320x180/1.jpg`" 
+              width="180">
+            </div>
+          
+
+            <!---product title-->
+            <div class="footer mt-3">
+              <div class="text-start">
+                  <p class="">{{product.title}}</p>
+              </div>
+            
+              <!---product price-->
+              <div class="text-end">
+                <span class="p-2">$ {{product.price}}</span>
+              </div>
+            </div><!--end card body-->
+          </div><!--end footer-->
+        </div><!--end card-->
+      </div><!--end column-->
+    </div><!--end row-->
+    
+    <!--total, checkout or continue shopping-->
+    <div class="text-end mt-3">
+
+      <!--total-->
+      <h2 class="text-light font-weight-bold font-size-lg">Total: $ {{orderTotal()}}</h2>
+
+      <!--Buttons-->
+      <div class="mt-3">
+
+        <!--continue shopping-->
+        <button 
+          @click="this.$router.go(-1);"
+          class="btn btn-secondary btn-lg">
+          Continue Shopping
+        </button>&nbsp;&nbsp;
+
+        <!--checkout button-->
+        <button class="btn btn-primary btn-lg">Checkout</button>
+      </div><!--end buttons-->
+    </div><!--end total, checkout or continue shopping-->
+
+  </template>
+
+  <template v-else>
+    <h4 class="text-light">No Items In Cart</h4>
+  </template>
+
 </template>
 
 <script>
@@ -42,7 +104,7 @@ export default {
       console.log(this.productsInBag);
       var total = 0;
       this.productsInBag.forEach(item => {
-        total += Number(item.tokens_required);
+        total += Number(item.price);
       });
       return total.toFixed(2)
     }
@@ -53,95 +115,3 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
-.basket {
-  padding: 60px 0;  
-  .items {
-    max-width: 800px;
-    margin: auto;
-    .item {
-      display: flex;
-      justify-content: space-between;
-      padding: 40px 0;
-      border-bottom: 1px solid lightgrey;
-      position: relative;
-
-      .remove {
-        position: absolute;
-        top: 8px;
-        right: 0;
-        font-size: 11px;
-        text-decoration: underline;
-        cursor: pointer;
-      }
-
-      .quantity-area {
-        margin: 8px auto;
-        height: 14px;
-
-        button {
-          width: 16px;
-          height: 16px;
-          display: inline-flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-        }
-
-        .quantity {
-
-            margin: 0 4px;
-        }
-      }
-
-      .photo {
-        img {
-          max-width: 80px;
-        }
-      }
-
-      .description {
-        padding-left: 30px;
-        box-sizing: border-box;
-        max-width: 50%;
-
-      }
-
-      .price {
-        .amount {
-          font-size: 16px;
-          margin-left: 8px;
-          vertical-align: middle;
-
-        }
-      }
-    }
-      .grand-total {
-          font-size: 24px;
-          font-weight: bold;
-          text-align: right;
-          margin-top: 8px;
-      }
-      .checkout-button-div {
-          text-align: right;
-          margin-top: 8px;
-      }
-      .checkout-button {
-          background-color: blue;
-          border: none;
-          color: white;
-          padding: 15px 32px;
-          text-align: center;
-          text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
-          cursor: pointer;
-      }
-
-  }
-
-}
-
-</style>

@@ -1,7 +1,8 @@
 <template>
   <div id="nav">
-    <router-link to="/">BitPorn.com</router-link> -
-    <router-link to="/basket">Shopping Cart ({{this.productsInBag.length}})</router-link> 
+    
+    <router-link to="/"><img width="144" src="http://bitporn.com/development/logo.png" alt="BitPorn Logo"></router-link> -
+    <router-link to="/basket"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;{{this.productsInBag.length}}</router-link> 
   </div>
   <router-view/>
 </template>

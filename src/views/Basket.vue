@@ -4,7 +4,7 @@
   <template v-if="productsInBag.length">
 
     <!--shopping cart title-->
-    <h5 class="mb-5">Your Shopping Cart</h5>
+    <h5 class="mb-1">Your Shopping Cart</h5>
       
     <div class='row'>
 
@@ -12,13 +12,15 @@
       <div
         v-for="(product, index) in productsInBag" 
         :key="parseInt(index)"
-        class="col-sm-12 mb-3 mb-sm-0">
+        class="col-sm-6 mb-3 mb-sm-0 mt-5">
     
 
         <!--card for each product begins here-->
-        <div class="
-          card 
-          mt-4">
+        <div 
+        class="card 
+        mt-5
+        h-80
+        ">
 
           <!--make the card light gray with white text-->
           <div class="card-body text-light bg-secondary">
@@ -29,8 +31,9 @@
               product.inShoppingCart = 0;">
 
               <!--red garbage can icon-->
-              <i class="
-                fa-regular 
+              <i
+                style="border:1px solid red; border-radius:5px; padding:5px;" 
+                class="fa-regular 
                 fa-trash-can 
                 text-danger 
                 fa-2x
@@ -39,22 +42,22 @@
             </div>
 
             <!--product image-->
-            <div class="text-start">
+            <div class="mt-3">
               <img class="rounded" 
-              :src="`https://bitporn.com/contents/videos_screenshots/0/${product.video_id}/320x180/1.jpg`" 
-              width="180">
+              :src="`https://bitporn.com/contents/videos_screenshots/0/${product.video_id}/preview.jpg`" 
+              width="320">
             </div>
           
 
             <!---product title-->
-            <div class="footer mt-3">
-              <div class="text-start">
-                  <p class="">{{product.title}}</p>
+            <div class="footer mt-3 text-light bg-secondary">
+              <div>
+                  <h5>{{product.title}}</h5>
               </div>
             
               <!---product price-->
               <div class="text-end">
-                <span class="p-2">$ {{product.price}}</span>
+                <h5 class="p-2">$ {{product.price}}</h5>
               </div>
             </div><!--end card body-->
           </div><!--end footer-->
@@ -66,10 +69,10 @@
     <div class="text-end mt-3">
 
       <!--total-->
-      <h2 class="text-light font-weight-bold font-size-lg">Total: $ {{orderTotal()}}</h2>
+      <h2 style="padding-right: 15px;" class="text-light font-weight-bold font-size-lg">Total: $ {{orderTotal()}}</h2>
 
       <!--Buttons-->
-      <div class="mt-3">
+      <div class="mx-3">
 
         <!--continue shopping-->
         <button 

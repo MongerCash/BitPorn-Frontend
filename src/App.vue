@@ -1,7 +1,6 @@
 <template>
   <div id="nav">
-    
-    <router-link to="/"><img width="144" src="http://bitporn.com/development/logo.png" alt="BitPorn Logo"></router-link> -
+    <router-link to="/"><img width="144" src="http://bitporn.com/development/logo.png" alt="BitPorn Logo"></router-link>
     <router-link to="/basket"><i class="fa-solid fa-cart-shopping"></i>&nbsp;&nbsp;{{this.productsInBag.length}}</router-link> 
   </div>
   <router-view/>
@@ -13,7 +12,11 @@
   export default {
 
     created() {
-      this.$store.dispatch('loadProducts');
+      this.$store.dispatch('loadProduct1');
+      this.$store.dispatch('loadProduct2');
+      this.$store.dispatch('loadProduct3');
+      this.$store.dispatch('loadProduct4');
+      this.$store.dispatch('loadShops');
       this.$store.dispatch('loadBag');
     },
     computed: mapState([
